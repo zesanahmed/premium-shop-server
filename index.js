@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require("cors");
+require('dotenv').config()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const port = 5000;
@@ -8,8 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 
-
-const uri = "mongodb+srv://zesanahmed593:sTbv90VXPXwFRrAc@cluster0.avk97us.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.avk97us.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 
 const client = new MongoClient(uri, {
@@ -52,14 +52,6 @@ run().catch(console.log);
 
 app.get('/',(req,res) => {
     res.send('Route is working')
-});
-app.get('/users',(req,res) => {
-    const user = {
-      name:"jisan",
-      id: 23,
-      wsl:"lsdkf"
-    }
-    res.send(user)
 });
 
 app.listen(port,(req,res) => {
