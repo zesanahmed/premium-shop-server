@@ -5,7 +5,13 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const port = 5000;
 
-app.use(cors());
+const corsConfig = {
+  origin: '',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
+app.options("", cors(corsConfig))
 app.use(express.json());
 
 
@@ -22,7 +28,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // await client.connect();
     const phoneDB = client.db("phoneDB");
     const phoneCollection = phoneDB.collection("phoneCollection");
 
